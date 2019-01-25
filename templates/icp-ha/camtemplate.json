@@ -1,0 +1,62 @@
+{
+    "name": "IBM Cloud Private installation with load balancers on Google Cloud",
+    "description": "This template will deploy ICP with load balancers and boot node.",
+    "version": "1.0",
+    "imageUrl": "",
+    "image": "",
+    "type": "prebuilt",
+    "status": "active",
+    "manifest": {
+      "template_type": "Terraform",
+      "template_format": "HCL",
+      "template_provider": "Google Cloud",
+      "template": {
+        "templateData": "",
+        "templateVariables": "",
+        "templateOutput": ""
+      },
+      "template_source": {
+        "githubRepoUrl": "",
+        "githubAccessToken": "",
+        "relativePathToTemplateFolder": "templates/icp-ha",
+        "templateFileName": "main.tf"
+      }
+    },
+    "metadata": {
+      "displayName": "IBM Cloud Private with load balancers and boot node installation on Google Cloud",
+      "providerDisplayName": "Google Cloud",
+	  "longDescription": "This template will deploy ICP with load balancers.",
+      "bullets": [{
+    "title": "Clouds",
+    "description": "Google Cloud<br>"},
+{
+    "title": "Operating Systems Supported",
+    "description": "Ubuntu 16<br>"},
+{
+    "title": "Topology",
+    "description": "Virtual Machines (7 or more VMs) <br> Virtual Machine 1     : IBM Cloud Private Boot Node<br>Virtual Machine 2/3/4 : IBM Cloud Private Master Nodes<br>Virtual Machine 5/6/7  : IBM Cloud Private Proxy Nodes<br>Virtual Machine 8/9/10 : IBM Cloud Private Worker Nodes<br>Virtual Machine 11/12/13 (optional)    : IBM Cloud Private Vulnerability Node<br>Virtual Machine 14/15/16 (optional)    : IBM Cloud Private Management Node (Master nodes become management nodes if no Management vms are being selected for deploy)<br>"},
+{
+    "title": "Software Deployed",
+    "description": "IBM Cloud Private<br>"},
+{
+    "title": "Default Virtual Machine Settings",
+    "description": "Defaults are shown and can be changed on deploy. They differ depending on the vm role.<br>"},
+{
+    "title": "Usage and Special Notes",
+    "description": "1. The user is responsible for obtaining appropriate software licenses and downloads prior to template deployment.<br>2. IBM Knowledge Center for IBM Cloud Private - <a href=\"https://www.ibm.com/support/knowledgecenter/en/SSBS6K/product_welcome_cloud_private.html\" target=\"_blank\">https://www.ibm.com/support/knowledgecenter/en/SSBS6K/product_welcome_cloud_private.html</a><br>3. IBM Support Portal - <a href=\"https://www.ibm.com/support/home/\" target=\"_blank\">https://www.ibm.com/support/home/</a><br>"
+}
+],
+      "featuredImageUrl": "",
+      "imageUrl": "",
+      "mediumImageUrl": "",
+      "smallImageUrl": "",
+      "documentationUrl": "",
+      "termsUrl": "",
+      "media": [
+      ]
+    },
+    "toolchain": {
+      "git": "https://github.com/ibmcam/cam-toolchain"
+    }
+}
+
