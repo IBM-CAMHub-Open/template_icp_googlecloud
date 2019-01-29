@@ -446,7 +446,19 @@
       "system": false,
       "required": false,
       "immutable": false
-    }, 
+    },
+    {
+      "name": "ibm_cloud_private_master_ip",
+      "type": "string",
+      "description": "IBM Cloud Private Cluster Docker Registry",
+      "hidden": false,
+      "label": "IBM Cloud Private Cluster Docker Registry",
+      "group_name": "content_template_output",
+      "secured": false,
+      "system": false,
+      "required": false,
+      "immutable": false
+    },     
     {
       "name": "ibm_cloud_docker_registry",
       "type": "string",
