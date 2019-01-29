@@ -12,7 +12,7 @@ output "ICP Kubernetes API URL" {
 }
 
 output "ibm_cloud_private_cluster_name" {
-  value = "${var.deployment}-${random_id.clusterid.hex}"
+  value = "${var.deployment}"
 }
 
 output "ibm_cloud_private_admin_user" {
@@ -28,7 +28,7 @@ output "ibm_cloud_private_boot_ip" {
 }
 
 output "ibm_cloud_private_master_ip" {
-  value = "${google_compute_address.icp-master.address}"
+  value = "${var.deployment}.icp"
 }
 
 output "ibm_cloud_private_proxy_ip" {

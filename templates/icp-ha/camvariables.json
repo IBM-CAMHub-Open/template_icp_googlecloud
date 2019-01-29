@@ -296,7 +296,7 @@
       "regex": "(?:[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?)",
       "required": true,
       "secured": false,
-      "label": "ICP deployment Name",
+      "label": "ICP Cluster Name",
       "hidden": false,
       "group_name": "cloud",            
       "immutable": false
@@ -448,11 +448,11 @@
       "immutable": false
     }, 
     {
-      "name": "ibm_cloud_private_master_ip",
+      "name": "ibm_cloud_docker_registry",
       "type": "string",
-      "description": "IBM Cloud Private Cluster Master Node IP.",
+      "description": "IBM Cloud Private Registry",
       "hidden": false,
-      "label": "Master IP",
+      "label": "IBM Cloud Private Registry",
       "group_name": "content_template_output",
       "secured": false,
       "system": false,
