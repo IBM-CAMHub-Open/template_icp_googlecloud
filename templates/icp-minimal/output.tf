@@ -32,7 +32,7 @@ output "ibm_cloud_private_master_ip" {
 }
 
 output "ibm_cloud_private_proxy_ip" {
-  value = "${google_compute_instance.icp-master.network_interface.0.access_config.0.assigned_nat_ip}"
+  value = "${google_compute_instance.icp-proxy.network_interface.0.access_config.0.assigned_nat_ip}"
 }
 
 output "ibm_cloud_private_ssh_user" {
