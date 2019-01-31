@@ -431,27 +431,15 @@
     {
       "name": "ibm_cloud_private_master_ip",
       "type": "string",
-      "description": "IBM Cloud Private Cluster Docker Registry",
+      "description": "IBM Cloud Private Cluster Master Node IP",
       "hidden": false,
-      "label": "IBM Cloud Private Cluster Docker Registry",
+      "label": "Master IP",
       "group_name": "content_template_output",
       "secured": false,
       "system": false,
       "required": false,
       "immutable": false
     },
-    {
-      "name": "ibm_cloud_private_proxy_ip",
-      "type": "string",
-      "description": "IBM Cloud Private Cluster Proxy Node IP.",
-      "hidden": false,
-      "label": "Proxy IP",
-      "group_name": "content_template_output",
-      "secured": false,
-      "system": false,
-      "required": false,
-      "immutable": false
-    },    
     {
       "name": "ibm_cloud_private_admin_url",
       "type": "url",
@@ -474,7 +462,18 @@
       "hidden": false,
       "immutable": false,
       "group_name": "content_template_output"
-    },    
+    }, 
+    {
+      "name": "ibm_cloud_private_cluster_CA_domain_name",
+      "description": "IBM Cloud Private Cluster CA Domain Name",
+      "type": "string",
+      "required": true,
+      "secured": false,
+      "label": "IBM Cloud Private Cluster CA Domain Name",
+      "hidden": false,
+      "immutable": false,
+      "group_name": "content_template_output"
+    },                 
     {
       "name": "ibm_cloud_private_admin_user",
       "description": "IBM Cloud Private Admin Username",

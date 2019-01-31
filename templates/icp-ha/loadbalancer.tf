@@ -42,6 +42,22 @@ resource "google_compute_forwarding_rule" "master-8443" {
 
 }
 
+resource "google_compute_forwarding_rule" "master-22" {
+  name        = "${var.deployment}-${random_id.clusterid.hex}-master-22"
+  description = "forward ICP master traffic to 22"
+
+  target      = "${google_compute_target_pool.icp-master.self_link}"
+  ip_address  = "${google_compute_address.icp-master.self_link}"
+  ip_protocol = "TCP"
+  port_range  = "22-22"
+
+  lifecycle {
+    ignore_changes = [
+      "ip_address"
+    ]
+  }
+
+}
 
 resource "google_compute_forwarding_rule" "master-8500" {
   name        = "${var.deployment}-${random_id.clusterid.hex}-master-8500"

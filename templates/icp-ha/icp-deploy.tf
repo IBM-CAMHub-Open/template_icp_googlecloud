@@ -103,7 +103,7 @@ module "icpprovision" {
       "cluster_lb_address"              = "${google_compute_address.icp-master.address}"
       "proxy_lb_address"                = "${google_compute_address.icp-proxy.address}"
       
-      #"cluster_CA_domain"               = "${google_compute_address.icp-master.address}"      
+      "cluster_CA_domain"               = "${var.deployment}-cluster.icp"      
       "cluster_name"                    = "${var.deployment}"
 
 	   #"cloud_provider" = "${local.is_311 == "true" ? "" : "gce"}"

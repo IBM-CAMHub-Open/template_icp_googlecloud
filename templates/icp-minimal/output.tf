@@ -15,6 +15,10 @@ output "ibm_cloud_private_cluster_name" {
   value = "${var.deployment}"
 }
 
+output "ibm_cloud_private_cluster_CA_domain_name" {
+  value = "${var.deployment}.icp"
+}
+
 output "ibm_cloud_private_admin_user" {
   value = "admin"
 }
@@ -28,11 +32,7 @@ output "ibm_cloud_private_boot_ip" {
 }
 
 output "ibm_cloud_private_master_ip" {
-  value = "${var.deployment}.icp"
-}
-
-output "ibm_cloud_private_proxy_ip" {
-  value = "${google_compute_instance.icp-proxy.network_interface.0.access_config.0.assigned_nat_ip}"
+  value = "${google_compute_instance.icp-master.network_interface.0.access_config.0.assigned_nat_ip}"
 }
 
 output "ibm_cloud_private_ssh_user" {
