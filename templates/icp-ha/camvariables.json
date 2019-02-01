@@ -150,7 +150,7 @@
     {
       "name": "master",
       "default": {
-        "nodes": "3",
+        "nodes": "1",
         "cpu": "8",
         "memory": "16384",
         "disk_size": "300",
@@ -168,7 +168,7 @@
     {
       "name": "proxy",
       "default": {
-        "nodes": "3",
+        "nodes": "1",
         "cpu": "4",
         "memory": "4096",
         "disk_size": "150",
@@ -204,7 +204,7 @@
     {
       "name": "mgmt",
       "default": {
-        "nodes": "3",
+        "nodes": "1",
         "cpu": "4",
         "memory": "16384",
         "disk_size": "200",
@@ -222,7 +222,7 @@
     {
       "name": "va",
       "default": {
-        "nodes": "3",
+        "nodes": "1",
         "cpu": "8",
         "memory": "16384",
         "disk_size": "400",
