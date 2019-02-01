@@ -31,7 +31,7 @@ output "ibm_cloud_private_boot_ip" {
 }
 
 output "ibm_cloud_private_master_ip" {
-  value = "${google_compute_instance.icp-boot.network_interface.0.access_config.0.assigned_nat_ip}"
+  value = "${google_compute_address.icp-master.address}"
 }
 
 output "ibm_cloud_private_ssh_user" {
