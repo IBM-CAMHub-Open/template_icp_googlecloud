@@ -5,6 +5,28 @@
       "label": "Bastion Data"
     }
   ],
+  "output_datatypes": [
+    {
+      "name": "com.ibm.cloud.cloudconnections.ICP",
+      "dataobject": {
+        "name": "${template_output_params.ibm_cloud_private_cluster_name}",
+        "attributes": [
+          {
+            "name": "username",
+            "value": "${template_output_params.ibm_cloud_private_admin_user}"
+          },
+          {
+            "name": "password",
+            "value": "${template_output_params.ibm_cloud_private_admin_password}"
+          },
+          {
+            "name": "ICP_server",
+            "value": "${template_output_params.ibm_cloud_private_master_ip}"
+          }
+        ]
+      }
+    }
+  ],      
   "input_groups": [
     {
       "name": "bastion",
