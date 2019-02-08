@@ -9,7 +9,7 @@
     {
       "name": "com.ibm.cloud.cloudconnections.ICP",
       "dataobject": {
-        "name": "${template_output_params.ibm_cloud_private_cluster_name}",
+        "name": "${template_output_params.connection_name}",
         "attributes": [
           {
             "name": "username",
@@ -555,6 +555,17 @@
       "required": false,
       "secured": false,
       "label": "IBM Cloud Private SSH Key",
+      "hidden": false,
+      "immutable": false,
+      "group_name": "content_template_output"
+    },    
+    {
+      "name": "connection_name",
+      "description": "IBM Cloud Private Connection Name",
+      "type": "string",
+      "required": false,
+      "secured": false,
+      "label": "IBM Cloud Private Connection Name",
       "hidden": false,
       "immutable": false,
       "group_name": "content_template_output"

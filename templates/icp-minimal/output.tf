@@ -42,3 +42,7 @@ output "ibm_cloud_private_ssh_user" {
 output "ibm_cloud_private_ssh_key" {
   value = "${base64encode(tls_private_key.installkey.private_key_pem)}"
 }
+
+output "connection_name" {
+	value = "${var.deployment}${random_id.clusterid.hex}"
+}
