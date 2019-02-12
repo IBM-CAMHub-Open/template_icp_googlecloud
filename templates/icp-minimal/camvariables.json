@@ -441,7 +441,7 @@
     {
       "name": "ibm_cloud_private_boot_ip",
       "type": "string",
-      "description": "IBM Cloud Private Cluster Boot Node IP.",
+      "description": "IBM Cloud Private Cluster Boot node IP.",
       "hidden": false,
       "label": "Boot IP",
       "group_name": "content_template_output",
@@ -453,7 +453,7 @@
     {
       "name": "ibm_cloud_private_master_ip",
       "type": "string",
-      "description": "IBM Cloud Private Cluster Master Node IP",
+      "description": "IBM Cloud Private Cluster Master node IP",
       "hidden": false,
       "label": "Master IP",
       "group_name": "content_template_output",
