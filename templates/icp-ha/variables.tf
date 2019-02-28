@@ -185,5 +185,5 @@ variable "service_account_email" {
 variable "disabled_management_services" {
   description = "List of management services to disable"
   type        = "list"
-  default     = ["istio", "vulnerability-advisor", "storage-glusterfs", "storage-minio", "metrics-server", "custom-metrics-adapter", "image-security-enforcement", "metering", "monitoring", "logging", "audit-logging"]
+  default     = ["istio", "vulnerability-advisor", "storage-glusterfs", "storage-minio"]
 }

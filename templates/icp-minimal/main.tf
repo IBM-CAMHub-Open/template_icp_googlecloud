@@ -6,7 +6,7 @@ provider "google-beta" {
 }
 */
 locals {
-   icppassword    = "${var.icppassword != "" ? "${var.icppassword}" : "${random_id.adminpassword.hex}"}"
+   icppassword    = "${var.icppassword != "" ? "${var.icppassword}" : "P${random_id.adminpassword.hex}!p"}"
 
   registry_server = "${var.registry_server != "" ? "${var.registry_server}" : "" }" 
   namespace       = "${dirname(var.icp_inception_image)}" # This will typically return ibmcom

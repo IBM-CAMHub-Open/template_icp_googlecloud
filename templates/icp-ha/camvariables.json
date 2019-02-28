@@ -337,7 +337,7 @@
     {
       "name": "disabled_management_services",
       "description": "List of disabled management services",
-      "default": ["istio", "vulnerability-advisor", "storage-glusterfs", "storage-minio", "metrics-server", "custom-metrics-adapter", "image-security-enforcement", "metering", "monitoring", "logging", "audit-logging"],
+      "default": ["istio", "vulnerability-advisor", "storage-glusterfs", "storage-minio"],
       "type": "list",
       "required": true,
       "secured": false,
