@@ -6,7 +6,7 @@ provider "google-beta" {
 }
 */
 locals {
-   icppassword    = "${var.icppassword != "" ? "${var.icppassword}" : "P${random_id.adminpassword.hex}!p"}"
+   icppassword    = "${var.icppassword != "" ? "${var.icppassword}" : "P${random_id.adminpassword.hex}@p"}"
 
   registry_server = "${var.registry_server != "" ? "${var.registry_server}" : "" }" 
   namespace       = "${dirname(var.icp_inception_image)}" # This will typically return ibmcom
@@ -22,7 +22,7 @@ locals {
   */
 
   # If we're using external registry we need to be supplied registry_username and registry_password
-  docker_username = "${var.registry_username != "" ? var.registry_username : var.ssh_user}"
+  docker_username = "${var.registry_username != "" ? var.registry_username : "admin"}"
   docker_password = "${var.registry_password != "" ? var.registry_password : "${local.icppassword}"}"
  
   docker_package_uri = "${var.docker_package_location != "" ? "/tmp/${basename(var.docker_package_location)}" : "" }"

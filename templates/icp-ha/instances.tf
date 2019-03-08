@@ -152,7 +152,19 @@ write_files:
 - encoding: b64
   content: ${base64encode(file("${path.module}/scripts/download_docker.sh"))}
   permissions: '0755'
-  path: /opt/ibm/scripts/download_docker.sh         
+  path: /opt/ibm/scripts/download_docker.sh  
+- path: /etc/registry/registry-cert.pem
+  permissions: '600'
+  encoding: b64
+  content: ${base64encode("${tls_self_signed_cert.registry_cert.cert_pem}")}
+- path: /etc/registry/registry-key.pem
+  permissions: '600'
+  encoding: b64
+  content: ${base64encode("${tls_private_key.registry_key.private_key_pem}")}         
+- path: /etc/docker/certs.d/${local.registry_server}:8500/ca.crt
+  permissions: '600'
+  encoding: b64
+  content: ${base64encode("${tls_self_signed_cert.registry_cert.cert_pem}")}         
 disk_setup:
   /dev/sdb:
      table_type: 'gpt'
@@ -166,6 +178,7 @@ fs_setup:
 mounts:
 - [ sdb, /var/lib/docker ]
 runcmd:
+- echo '127.0.0.1 ${local.registry_server}' >> /etc/hosts
 - /opt/ibm/scripts/download_docker.sh ${var.docker_package_location != "" ? "-d ${var.docker_package_location}" : "" } -u ${var.download_user} -p ${var.download_user_password} 
 - /opt/ibm/scripts/bootstrap.sh -u ${var.ssh_user} ${local.docker_package_uri != "" ? "-p ${local.docker_package_uri}" : "" } -d /dev/sdb
 EOF
@@ -245,7 +258,11 @@ write_files:
 - encoding: b64
   content: ${base64encode(file("${path.module}/scripts/download_docker.sh"))}
   permissions: '0755'
-  path: /opt/ibm/scripts/download_docker.sh         
+  path: /opt/ibm/scripts/download_docker.sh  
+- path: /etc/docker/certs.d/${local.registry_server}:8500/ca.crt
+  permissions: '600'
+  encoding: b64
+  content: ${base64encode("${tls_self_signed_cert.registry_cert.cert_pem}")}         
 disk_setup:
   /dev/sdb:
      table_type: 'gpt'
@@ -268,6 +285,7 @@ mounts:
 - [ '${google_filestore_instance.icp-registry.networks.0.ip_addresses.0}:/${google_filestore_instance.icp-registry.file_shares.0.name}', '/var/lib/registry', 'nfs', 'defaults', '0', '0' ]
 - [ '${google_filestore_instance.icp-registry.networks.0.ip_addresses.0}:/${google_filestore_instance.icp-registry.file_shares.0.name}', '/var/lib/icp/audit', 'nfs', 'defaults', '0', '0' ]
 runcmd:
+- echo '${google_compute_instance.icp-boot.network_interface.0.network_ip} ${local.registry_server}' >> /etc/hosts
 - /opt/ibm/scripts/download_docker.sh ${var.docker_package_location != "" ? "-d ${var.docker_package_location}" : "" } -u ${var.download_user} -p ${var.download_user_password} 
 - /opt/ibm/scripts/bootstrap.sh -u ${var.ssh_user} ${local.docker_package_uri != "" ? "-p ${local.docker_package_uri}" : "" } -d /dev/sdb
 EOF
@@ -327,6 +345,7 @@ ${var.ssh_user}:${tls_private_key.installkey.public_key_openssh}
 EOF
     user-data = <<EOF
 #cloud-config
+packages:
   - unzip
   - python
 write_files:
@@ -337,7 +356,11 @@ write_files:
 - encoding: b64
   content: ${base64encode(file("${path.module}/scripts/download_docker.sh"))}
   permissions: '0755'
-  path: /opt/ibm/scripts/download_docker.sh           
+  path: /opt/ibm/scripts/download_docker.sh 
+- path: /etc/docker/certs.d/${local.registry_server}:8500/ca.crt
+  permissions: '600'
+  encoding: b64
+  content: ${base64encode("${tls_self_signed_cert.registry_cert.cert_pem}")}            
 disk_setup:
   /dev/sdb:
      table_type: 'gpt'
@@ -356,8 +379,9 @@ fs_setup:
     device: '/dev/sdb'
     partition: 'auto'
 mounts:
-- [ 'sdb', '/var/lib/docker' ]
+- [ sdb, /var/lib/docker ]
 runcmd:
+- echo '${google_compute_instance.icp-boot.network_interface.0.network_ip} ${local.registry_server}' >> /etc/hosts
 - /opt/ibm/scripts/download_docker.sh ${var.docker_package_location != "" ? "-d ${var.docker_package_location}" : "" } -u ${var.download_user} -p ${var.download_user_password} 
 - /opt/ibm/scripts/bootstrap.sh -u ${var.ssh_user} ${local.docker_package_uri != "" ? "-p ${local.docker_package_uri}" : "" } -d /dev/sdb
 EOF
@@ -439,7 +463,11 @@ write_files:
 - encoding: b64
   content: ${base64encode(file("${path.module}/scripts/download_docker.sh"))}
   permissions: '0755'
-  path: /opt/ibm/scripts/download_docker.sh           
+  path: /opt/ibm/scripts/download_docker.sh 
+- path: /etc/docker/certs.d/${local.registry_server}:8500/ca.crt
+  permissions: '600'
+  encoding: b64
+  content: ${base64encode("${tls_self_signed_cert.registry_cert.cert_pem}")}            
 disk_setup:
   /dev/sdb:
      table_type: 'gpt'
@@ -460,6 +488,7 @@ fs_setup:
 mounts:
 - [ sdb, /var/lib/docker ]
 runcmd:
+- echo '${google_compute_instance.icp-boot.network_interface.0.network_ip} ${local.registry_server}' >> /etc/hosts
 - /opt/ibm/scripts/download_docker.sh ${var.docker_package_location != "" ? "-d ${var.docker_package_location}" : "" } -u ${var.download_user} -p ${var.download_user_password} 
 - /opt/ibm/scripts/bootstrap.sh -u ${var.ssh_user} ${local.docker_package_uri != "" ? "-p ${local.docker_package_uri}" : "" } -d /dev/sdb
 EOF
@@ -540,7 +569,11 @@ write_files:
 - encoding: b64
   content: ${base64encode(file("${path.module}/scripts/download_docker.sh"))}
   permissions: '0755'
-  path: /opt/ibm/scripts/download_docker.sh           
+  path: /opt/ibm/scripts/download_docker.sh 
+- path: /etc/docker/certs.d/${local.registry_server}:8500/ca.crt
+  permissions: '600'
+  encoding: b64
+  content: ${base64encode("${tls_self_signed_cert.registry_cert.cert_pem}")}            
 disk_setup:
   /dev/sdb:
      table_type: 'gpt'
@@ -561,6 +594,7 @@ fs_setup:
 mounts:
 - [ sdb, /var/lib/docker ]
 runcmd:
+- echo '${google_compute_instance.icp-boot.network_interface.0.network_ip} ${local.registry_server}' >> /etc/hosts
 - /opt/ibm/scripts/download_docker.sh ${var.docker_package_location != "" ? "-d ${var.docker_package_location}" : "" } -u ${var.download_user} -p ${var.download_user_password} 
 - /opt/ibm/scripts/bootstrap.sh -u ${var.ssh_user} ${local.docker_package_uri != "" ? "-p ${local.docker_package_uri}" : "" } -d /dev/sdb
 EOF
@@ -641,7 +675,11 @@ write_files:
 - encoding: b64
   content: ${base64encode(file("${path.module}/scripts/download_docker.sh"))}
   permissions: '0755'
-  path: /opt/ibm/scripts/download_docker.sh           
+  path: /opt/ibm/scripts/download_docker.sh 
+- path: /etc/docker/certs.d/${local.registry_server}:8500/ca.crt
+  permissions: '600'
+  encoding: b64
+  content: ${base64encode("${tls_self_signed_cert.registry_cert.cert_pem}")}            
 disk_setup:
   /dev/sdb:
      table_type: 'gpt'
@@ -662,6 +700,7 @@ fs_setup:
 mounts:
 - [ sdb, /var/lib/docker ]
 runcmd:
+- echo '${google_compute_instance.icp-boot.network_interface.0.network_ip} ${local.registry_server}' >> /etc/hosts
 - /opt/ibm/scripts/download_docker.sh ${var.docker_package_location != "" ? "-d ${var.docker_package_location}" : "" } -u ${var.download_user} -p ${var.download_user_password} 
 - /opt/ibm/scripts/bootstrap.sh -u ${var.ssh_user} ${local.docker_package_uri != "" ? "-p ${local.docker_package_uri}" : "" } -d /dev/sdb
 EOF

@@ -4,7 +4,7 @@ output "ibm_cloud_private_admin_url" {
 }
 
 output "ICP Registry URL" {
-  value = "https://${google_compute_address.icp-master.address}:8500"
+  value = "https://${google_compute_instance.icp-boot.network_interface.0.access_config.0.assigned_nat_ip}:8500"
 }
 
 output "ICP Kubernetes API URL" {
@@ -13,6 +13,10 @@ output "ICP Kubernetes API URL" {
 
 output "ibm_cloud_private_cluster_name" {
   value = "${var.deployment}"
+}
+
+output "ibm_cloud_private_registry_server" {
+  value = "${local.registry_server}"
 }
 
 output "ibm_cloud_private_cluster_CA_domain_name" {

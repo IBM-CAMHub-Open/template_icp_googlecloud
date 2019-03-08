@@ -127,7 +127,7 @@ variable "va" {
   type    = "map"
 
   default = {
-    nodes         = 3
+    nodes         = 0
     cpu           = 8
     memory        = 16384
 
@@ -140,7 +140,7 @@ variable "worker" {
   type = "map"
 
   default = {
-    nodes         = 0
+    nodes         = 3
     cpu           = 4
     memory        = 16384
 

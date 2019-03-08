@@ -514,7 +514,17 @@
       "hidden": false,
       "immutable": false,
       "group_name": "content_template_output"
-    },          
+    },  
+    {
+      "name": "ibm_cloud_private_registry_server",
+      "description": "IBM Cloud Private Registry Server",
+      "type": "string",
+      "required": true,
+      "secured": false,
+      "label": "ICP Registry Server",
+      "hidden": false,
+      "immutable": false
+    },            
     {
       "name": "ibm_cloud_private_admin_user",
       "description": "IBM Cloud Private Admin Username",
