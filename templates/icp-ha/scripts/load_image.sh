@@ -20,7 +20,6 @@ done
 echo "package_location=${package_location}"
 echo "registry=${registry}"
 echo "reguser=${reguser}"
-echo "regpassword=${regpassword}"
 
 if [ -z "${package_location}" ]; then
 
