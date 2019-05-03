@@ -414,7 +414,7 @@
   },
   {
     "name": "image_location",
-    "description": "URI for image package location, e.g. http://<myhost>/ibm-cloud-private-x86_64-3.1.1.tar.gz or nfs:<myhost>/ibm-cloud-private-x86_64-2.1.0.2.tar.gz.<br>If not set, the image is picked up from DockerHub",
+    "description": "URI for image package location, e.g. http://<myhost>/ibm-cloud-private-x86_64-3.1.2.tar.gz or nfs:<myhost>/ibm-cloud-private-x86_64-2.1.0.2.tar.gz.<br>If not set, the image is picked up from DockerHub",
     "type": "string",
     "required": false,
     "secured": false,
@@ -428,7 +428,7 @@
   {
     "name": "icp_inception_image",
     "description": "IBM Cloud Private Version Number",
-    "default" : "ibmcom/icp-inception:3.1.1",
+    "default" : "ibmcom/icp-inception:3.1.2",
     "type": "string",
     "required": false,
     "secured": false,
@@ -462,6 +462,16 @@
       "required": false,
       "immutable": false
     },
+    {
+      "name": "icp_klusterlet_dns",
+      "label": "Host Name for klusterlet Prometheus ingress rule",
+      "description": "Use this host name as input to the klusterlet Prometheus ingress hostname.",
+      "group_name": "",
+      "secured": false,
+      "hidden": false,
+      "shortname": "",
+      "type": "string"
+    },                 
     {
       "name": "ibm_cloud_private_admin_url",
       "type": "url",

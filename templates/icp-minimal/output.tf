@@ -46,3 +46,7 @@ output "ibm_cloud_private_ssh_key" {
 output "connection_name" {
 	value = "${var.deployment}${random_id.clusterid.hex}"
 }
+
+output "icp_klusterlet_dns" {
+  value = "${google_compute_instance.icp-master.network_interface.0.access_config.0.assigned_nat_ip}"
+}

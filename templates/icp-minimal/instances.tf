@@ -204,7 +204,7 @@ resource "google_compute_instance" "icp-master" {
   tags = [
     "${compact(list(
     "icp-master-${random_id.clusterid.hex}",
-    "${var.proxy["nodes"] < 1 ? "icp-proxy-${random_id.clusterid.hex}" : ""}",
+    "icp-proxy-${random_id.clusterid.hex}",
     "icp-cluster-${random_id.clusterid.hex}"
     ))}"
   ]
@@ -224,6 +224,7 @@ resource "google_compute_instance" "icp-master" {
 
 	 access_config {
 	         //Ephemeral IP
+	         //public_ptr_domain_name = ""
 	    }    
      
   }

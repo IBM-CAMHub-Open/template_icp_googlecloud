@@ -80,14 +80,20 @@ fi
 echo "Unpacking ${image_file} ..."
 pv --interval 10 ${image_file} | tar zxf - -O | sudo docker load
 
-sudo mkdir -p /registry
-sudo mkdir -p /etc/docker/certs.d/${registry}
-sudo cp /etc/registry/registry-cert.pem /etc/docker/certs.d/${registry}/ca.crt
-
 sudo mkdir -p /opt/ibm/cluster/images
 sudo mv ${image_file} /opt/ibm/cluster/images/
 
 sudo chown $(whoami) -R /opt/ibm/cluster/images
+
+if [ -z "${registry}" ]; then
+
+ echo " no private registry setup exit now"
+  exit 0
+fi
+
+sudo mkdir -p /registry
+sudo mkdir -p /etc/docker/certs.d/${registry}
+sudo cp /etc/registry/registry-cert.pem /etc/docker/certs.d/${registry}/ca.crt
 
 # Create authentication
 sudo mkdir /auth

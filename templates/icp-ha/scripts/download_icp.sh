@@ -15,6 +15,8 @@ if [ -z "${PARAM_ICP}" ]; then
   exit 0
 fi
 
+echo "PARAM_AUTH_USER=$PARAM_AUTH_USER"
+
 # Check if a command exists
 function command_exists() {
   type "$1" &> /dev/null;

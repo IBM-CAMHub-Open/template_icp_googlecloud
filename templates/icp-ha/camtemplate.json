@@ -1,5 +1,5 @@
 {
-    "name": "IBM Cloud Private installation with load balancers on Google Cloud",
+    "name": "Val IBM Cloud Private installation with load balancers on Google Cloud",
     "description": "This template will deploy ICP with load balancers and boot node.",
     "version": "1.0",
     "imageUrl": "",

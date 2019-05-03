@@ -89,51 +89,6 @@ resource "google_compute_forwarding_rule" "master-9443" {
   }
 }
 
-resource "google_compute_address" "icp-proxy" {
-  name = "${var.deployment}-${random_id.clusterid.hex}-proxy-addr"
-}
-
-resource "google_compute_target_pool" "icp-proxy" {
-  name = "${var.deployment}-${random_id.clusterid.hex}-proxy"
-
-  instances = [
-    "${google_compute_instance.icp-proxy.*.self_link}"
-  ]
-}
-
-resource "google_compute_forwarding_rule" "proxy-80" {
-  name        = "${var.deployment}-${random_id.clusterid.hex}-proxy-80"
-  description = "forward ICP master traffic to 80"
-
-  target      = "${google_compute_target_pool.icp-proxy.self_link}"
-  ip_address  = "${google_compute_address.icp-proxy.self_link}"
-  ip_protocol = "TCP"
-  port_range  = "80-80"
-
-  lifecycle {
-    ignore_changes = [
-      "ip_address"
-    ]
-  }
-}
-
-
-resource "google_compute_forwarding_rule" "proxy-443" {
-  name        = "${var.deployment}-${random_id.clusterid.hex}-proxy-443"
-  description = "forward ICP master traffic to 443"
-
-  target      = "${google_compute_target_pool.icp-proxy.self_link}"
-  ip_address  = "${google_compute_address.icp-proxy.self_link}"
-  ip_protocol = "TCP"
-  port_range  = "443-443"
-
-  lifecycle {
-    ignore_changes = [
-      "ip_address"
-    ]
-  }
-}
-
 
 resource "google_compute_health_check" "master-8443" {
   name               = "${var.deployment}-${random_id.clusterid.hex}-master-8443"
@@ -184,3 +139,96 @@ resource "google_compute_health_check" "master-8001" {
     port = 8001
   }
 }
+
+###############
+resource "google_compute_address" "icp-proxy" {
+  name = "${var.deployment}-${random_id.clusterid.hex}-proxy-addr"
+}
+
+resource "google_compute_target_pool" "icp-proxy" {
+  name = "${var.deployment}-${random_id.clusterid.hex}-proxy"
+
+  instances = [
+    "${google_compute_instance.icp-proxy.*.self_link}"
+  ]
+}
+
+resource "google_compute_forwarding_rule" "proxy-80" {
+  name        = "${var.deployment}-${random_id.clusterid.hex}-proxy-80"
+  description = "forward ICP master traffic to 80"
+
+  target      = "${google_compute_target_pool.icp-proxy.self_link}"
+  ip_address  = "${google_compute_address.icp-proxy.self_link}"
+  ip_protocol = "TCP"
+  port_range  = "80-80"
+
+  lifecycle {
+    ignore_changes = [
+      "ip_address"
+    ]
+  }
+}
+
+
+resource "google_compute_forwarding_rule" "proxy-443" {
+  name        = "${var.deployment}-${random_id.clusterid.hex}-proxy-443"
+  description = "forward ICP master traffic to 443"
+
+  target      = "${google_compute_target_pool.icp-proxy.self_link}"
+  ip_address  = "${google_compute_address.icp-proxy.self_link}"
+  ip_protocol = "TCP"
+  port_range  = "443-443"
+
+  lifecycle {
+    ignore_changes = [
+      "ip_address"
+    ]
+  }
+}
+
+###############Klusterlet
+resource "google_compute_address" "icp-klusterlet" {
+  name = "${var.deployment}-${random_id.clusterid.hex}-klusterlet-addr"
+}
+
+resource "google_compute_target_pool" "icp-klusterlet" {
+  name = "${var.deployment}-${random_id.clusterid.hex}-klusterlet"
+
+  instances = [
+    "${google_compute_instance.icp-proxy.*.self_link}"
+  ]
+}
+
+resource "google_compute_forwarding_rule" "klusterlet-80" {
+  name        = "${var.deployment}-${random_id.clusterid.hex}-klusterlet-80"
+  description = "forward MCM klusterlet traffic to 80"
+
+  target      = "${google_compute_target_pool.icp-klusterlet.self_link}"
+  ip_address  = "${google_compute_address.icp-klusterlet.self_link}"
+  ip_protocol = "TCP"
+  port_range  = "80-80"
+
+  lifecycle {
+    ignore_changes = [
+      "ip_address"
+    ]
+  }
+}
+
+
+resource "google_compute_forwarding_rule" "klusterlet-443" {
+  name        = "${var.deployment}-${random_id.clusterid.hex}-klusterlet-443"
+  description = "forward MCM klusterlet traffic to 443"
+
+  target      = "${google_compute_target_pool.icp-klusterlet.self_link}"
+  ip_address  = "${google_compute_address.icp-klusterlet.self_link}"
+  ip_protocol = "TCP"
+  port_range  = "443-443"
+
+  lifecycle {
+    ignore_changes = [
+      "ip_address"
+    ]
+  }
+}
+

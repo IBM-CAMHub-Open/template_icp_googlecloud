@@ -1,15 +1,3 @@
-resource "google_compute_firewall" "boot-node" {
-  name    = "${var.deployment}-${random_id.clusterid.hex}-boot-allow-8500"
-  network = "${google_compute_network.icp.self_link}"
-
-  allow {
-    protocol = "tcp"
-    ports    = ["8500"]
-  }
-
-  source_ranges = ["0.0.0.0/0"]
-  target_tags = ["icp-boot-${random_id.clusterid.hex}"]
-}
 
 resource "google_compute_firewall" "cluster-node-ssh" {
   name    = "${var.deployment}-${random_id.clusterid.hex}-cluster-allow-ssh"
