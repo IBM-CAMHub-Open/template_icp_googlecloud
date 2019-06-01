@@ -51,12 +51,20 @@ resource "null_resource" "image_load" {
 ##################################
 module "icpprovision" {
 
-  source = "git::https://github.com/IBM-CAMHub-Open/template_icp_modules.git?ref=2.3//public_cloud"
+    source = "git::https://github.com/IBM-CAMHub-Open/template_icp_modules.git?ref=2.3//public_cloud"
 
     # Provide IP addresses for boot, master, mgmt, va, proxy and workers
     boot-node     = "${google_compute_instance.icp-boot.network_interface.0.network_ip}"
     bastion_host  = "${google_compute_instance.icp-boot.network_interface.0.access_config.0.nat_ip}"
 
+    #in support of workers scaling
+ 	icp-worker = "${slice(concat(google_compute_instance.icp-worker.*.network_interface.0.network_ip,
+                                     google_compute_instance.icp-master.*.network_interface.0.network_ip),
+                              var.worker["nodes"] > 0 ? 0 : length(google_compute_instance.icp-worker.*.network_interface.0.network_ip),
+                              var.worker["nodes"] > 0 ? length(google_compute_instance.icp-worker.*.network_interface.0.network_ip) :
+                                                      length(google_compute_instance.icp-worker.*.network_interface.0.network_ip) +
+                                                        length(google_compute_instance.icp-master.*.network_interface.0.network_ip))}"
+                                                        
     icp-host-groups = {
         master = ["${google_compute_instance.icp-master.*.network_interface.0.network_ip}"]
         proxy = "${slice(concat(google_compute_instance.icp-proxy.*.network_interface.0.network_ip,

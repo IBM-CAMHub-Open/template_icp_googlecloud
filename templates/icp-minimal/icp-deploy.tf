@@ -57,6 +57,13 @@ module "icpprovision" {
     boot-node     = "${google_compute_instance.icp-master.network_interface.0.network_ip}"
     bastion_host  = "${google_compute_instance.icp-master.network_interface.0.access_config.0.nat_ip}"
 
+    #in support of workers scaling
+    icp-worker = "${slice(concat(google_compute_instance.icp-worker.*.network_interface.0.network_ip,
+                                     google_compute_instance.icp-master.*.network_interface.0.network_ip),
+                              var.worker["nodes"] > 0 ? 0 : length(google_compute_instance.icp-worker.*.network_interface.0.network_ip),
+                              var.worker["nodes"] > 0 ? length(google_compute_instance.icp-worker.*.network_interface.0.network_ip) :
+                                                      length(google_compute_instance.icp-worker.*.network_interface.0.network_ip) +
+                                                        length(google_compute_instance.icp-master.*.network_interface.0.network_ip))}"
     icp-host-groups = {
         master = ["${google_compute_instance.icp-master.*.network_interface.0.network_ip}"]
         proxy = "${slice(concat(google_compute_instance.icp-proxy.*.network_interface.0.network_ip,
@@ -91,7 +98,6 @@ module "icpprovision" {
     /* Workaround for terraform issue #10857
      When this is fixed, we can work this out automatically */
     cluster_size  = "${1 + var.master["nodes"] + var.worker["nodes"] + var.proxy["nodes"] + var.mgmt["nodes"] + var.va["nodes"]}"
-
     ###################################################################################################################################
     ## You can feed in arbitrary configuration items in the icp_configuration map.
     ## Available configuration items availble from https://www.ibm.com/support/knowledgecenter/SSBS6K_3.1.0/installing/config_yaml.html
@@ -134,9 +140,6 @@ module "icpprovision" {
       "boot-preconfig" = [
         "while [ ! -f /opt/ibm/.imageload_complete ]; do sleep 5; done"
       ]
-      "cluster-postconfig" = [
-        "echo  TESTING !!! /etc/docker/certs.d/${var.deployment}-cluster.icp:8500/ca.crt"
-      ]      
     }
 
     ## Alternative approach

@@ -190,10 +190,10 @@
     {
       "name": "proxy",
       "default": {
-        "nodes": "0",
+        "nodes": "1",
         "cpu": "4",
         "memory": "4096",
-        "disk_size": "100",
+        "disk_size": "150",
         "docker_disk_size": "100"
       },
       "description": "Proxy Node vm settings. If set to 0, the master node becomes proxy too.",
@@ -208,10 +208,10 @@
     {
       "name": "worker",
       "default": {
-        "nodes": "0",
+        "nodes": "1",
         "cpu": "4",
         "memory": "16384",
-        "disk_size": "100",
+        "disk_size": "150",
         "docker_disk_size": "100"
       },
       "description": "Worker Node vm settings.If set to 0, the master node becomes worker too.",
@@ -226,10 +226,10 @@
     {
       "name": "mgmt",
       "default": {
-        "nodes": "0",
+        "nodes": "1",
         "cpu": "4",
         "memory": "16384",
-        "disk_size": "100",
+        "disk_size": "300",
         "docker_disk_size": "100"
       },
       "description": "Management Node vm settings. If the node value is 0, the master node will be set as a management node.",
@@ -319,7 +319,7 @@
     {
       "name": "disabled_management_services",
       "description": "List of disabled management services",
-      "default": ["istio", "vulnerability-advisor", "storage-glusterfs", "storage-minio", "metrics-server", "custom-metrics-adapter", "image-security-enforcement", "metering", "monitoring", "logging", "audit-logging"],
+      "default": ["istio", "vulnerability-advisor", "storage-glusterfs", "storage-minio", "metrics-server", "custom-metrics-adapter", "image-security-enforcement", "metering", "logging", "audit-logging"],
       "type": "list",
       "required": true,
       "secured": false,

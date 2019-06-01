@@ -27,10 +27,6 @@ if [ -z "${package_location}" ]; then
   exit 0
 fi
 
-# find my private IP address, which will be on the interface the default route is configured on
-myip=`ip route get 10.0.0.11 | awk 'NR==1 {print $NF}'`
-
-echo "${myip} ${registry}" | sudo tee -a /etc/hosts
 
 sourcedir="/tmp/icpimages"
 # Get package from remote location if needed
@@ -90,6 +86,11 @@ if [ -z "${registry}" ]; then
  echo " no private registry setup exit now"
   exit 0
 fi
+
+# find my private IP address, which will be on the interface the default route is configured on
+myip=`ip route get 10.0.0.11 | awk 'NR==1 {print $NF}'`
+
+echo "${myip} ${registry}" | sudo tee -a /etc/hosts
 
 sudo mkdir -p /registry
 sudo mkdir -p /etc/docker/certs.d/${registry}

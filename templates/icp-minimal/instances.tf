@@ -163,6 +163,10 @@ write_files:
   content: ${base64encode(file("${path.module}/scripts/download_docker.sh"))}
   permissions: '0755'
   path: /opt/ibm/scripts/download_docker.sh         
+- encoding: b64
+  content: ${base64encode("${tls_private_key.installkey.private_key_pem}")}
+  permissions: '0600'
+  path: /opt/ibm/scripts/.cluster_ssh                       
 disk_setup:
   /dev/sdb:
      table_type: 'gpt'
@@ -178,6 +182,7 @@ mounts:
 runcmd:
 - /opt/ibm/scripts/download_docker.sh ${var.docker_package_location != "" ? "-d ${var.docker_package_location}" : "" } -u ${var.download_user} -p ${var.download_user_password} 
 - /opt/ibm/scripts/bootstrap.sh -u ${var.ssh_user} ${local.docker_package_uri != "" ? "-p ${local.docker_package_uri}" : "" } -d /dev/sdb
+- chown ${var.ssh_user} /opt/ibm/scripts/.cluster_ssh
 EOF
   }
   
@@ -256,7 +261,11 @@ write_files:
 - encoding: b64
   content: ${base64encode(file("${path.module}/scripts/download_docker.sh"))}
   permissions: '0755'
-  path: /opt/ibm/scripts/download_docker.sh         
+  path: /opt/ibm/scripts/download_docker.sh 
+- encoding: b64
+  content: ${base64encode("${tls_private_key.installkey.private_key_pem}")}
+  permissions: '0600'
+  path: /opt/ibm/scripts/.cluster_ssh                                 
 disk_setup:
   /dev/sdb:
      table_type: 'gpt'
@@ -279,6 +288,7 @@ mounts:
 runcmd:
 - /opt/ibm/scripts/download_docker.sh ${var.docker_package_location != "" ? "-d ${var.docker_package_location}" : "" } -u ${var.download_user} -p ${var.download_user_password} 
 - /opt/ibm/scripts/bootstrap.sh -u ${var.ssh_user} ${local.docker_package_uri != "" ? "-p ${local.docker_package_uri}" : "" } -d /dev/sdb
+- chown ${var.ssh_user} /opt/ibm/scripts/.cluster_ssh
 EOF
   }  
   
@@ -334,6 +344,7 @@ ${var.ssh_user}:${tls_private_key.installkey.public_key_openssh}
 EOF
     user-data = <<EOF
 #cloud-config
+packages:
   - unzip
   - python
 write_files:

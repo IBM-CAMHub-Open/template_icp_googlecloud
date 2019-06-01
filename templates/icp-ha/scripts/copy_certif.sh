@@ -22,4 +22,5 @@ sudo ssh -o StrictHostKeyChecking=no -i /opt/ibm/scripts/.master_ssh $SSH_USER@$
 sudo scp -o StrictHostKeyChecking=no -i /opt/ibm/scripts/.master_ssh $SSH_USER@$MASTER_IP:/tmp/ca.crt $CERT_PATH       
 
 #clean up cert on master
-sudo ssh -o StrictHostKeyChecking=no -i /opt/ibm/scripts/.master_ssh $SSH_USER@$MASTER_IP sudo rm -rf /tmp/ca.crt      
+sudo ssh -o StrictHostKeyChecking=no -i /opt/ibm/scripts/.master_ssh $SSH_USER@$MASTER_IP sudo rm -rf /tmp/ca.crt 
+     
