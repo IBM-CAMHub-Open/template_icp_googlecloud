@@ -2,6 +2,10 @@
 
 resource "null_resource" "image_copy" {
 
+  triggers {
+    imageversion = "${var.image_location}"
+  }
+
   connection {
 
     host     = "${google_compute_instance.icp-boot.network_interface.0.network_ip}"
@@ -23,6 +27,10 @@ resource "null_resource" "image_copy" {
 resource "null_resource" "image_load" {
   # Only do an image load if we have provided a location. Presumably if not we'll be loading from private registry server
   depends_on = ["null_resource.image_copy"]
+
+  triggers {
+    imageversion = "${var.image_location}"
+  }
 
   connection {
   
@@ -51,11 +59,15 @@ resource "null_resource" "image_load" {
 ##################################
 module "icpprovision" {
 
-    source = "git::https://github.com/IBM-CAMHub-Open/template_icp_modules.git?ref=2.3//public_cloud"
+  source = "git::https://github.com/IBM-CAMHub-Open/template_icp_modules.git?ref=2.3//public_cloud"
 
     # Provide IP addresses for boot, master, mgmt, va, proxy and workers
     boot-node     = "${google_compute_instance.icp-boot.network_interface.0.network_ip}"
     bastion_host  = "${google_compute_instance.icp-boot.network_interface.0.access_config.0.nat_ip}"
+
+    #in support of version upgrade
+    icp-version-upgrade = "${local.icp-version}"
+    image-location-upgrade = "${var.image_location}"
 
     #in support of workers scaling
  	icp-worker = "${slice(concat(google_compute_instance.icp-worker.*.network_interface.0.network_ip,

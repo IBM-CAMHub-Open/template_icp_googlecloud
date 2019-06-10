@@ -2,6 +2,10 @@
 
 resource "null_resource" "image_copy" {
 
+  triggers {
+    imageversion = "${var.image_location}"
+  }
+
   connection {
 
     host     = "${google_compute_instance.icp-master.network_interface.0.network_ip}"
@@ -23,6 +27,10 @@ resource "null_resource" "image_copy" {
 resource "null_resource" "image_load" {
   # Only do an image load if we have provided a location. Presumably if not we'll be loading from private registry server
   depends_on = ["null_resource.image_copy"]
+
+  triggers {
+    imageversion = "${var.image_location}"
+  }
 
   connection {
   
@@ -64,6 +72,10 @@ module "icpprovision" {
                               var.worker["nodes"] > 0 ? length(google_compute_instance.icp-worker.*.network_interface.0.network_ip) :
                                                       length(google_compute_instance.icp-worker.*.network_interface.0.network_ip) +
                                                         length(google_compute_instance.icp-master.*.network_interface.0.network_ip))}"
+
+    #in support of version upgrade
+    icp-version-upgrade = "${local.icp-version}"
+        
     icp-host-groups = {
         master = ["${google_compute_instance.icp-master.*.network_interface.0.network_ip}"]
         proxy = "${slice(concat(google_compute_instance.icp-proxy.*.network_interface.0.network_ip,

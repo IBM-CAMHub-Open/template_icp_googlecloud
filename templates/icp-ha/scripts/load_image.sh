@@ -27,6 +27,15 @@ if [ -z "${package_location}" ]; then
   exit 0
 fi
 
+image_file="/tmp/$(basename ${package_location})"
+echo "image_file=$image_file"
+
+if [ -f /opt/ibm/cluster/images/$image_file ]; then
+ 	echo "image file seems to have been already loaded to /opt/ibm/cluster/images/$image_file, do nothing"
+  exit 0
+
+fi
+
 
 sourcedir="/tmp/icpimages"
 # Get package from remote location if needed
@@ -76,12 +85,13 @@ fi
 echo "Unpacking ${image_file} ..."
 pv --interval 10 ${image_file} | tar zxf - -O | sudo docker load
 
-sudo mkdir -p /opt/ibm/cluster/images
-sudo mv ${image_file} /opt/ibm/cluster/images/
-
-sudo chown $(whoami) -R /opt/ibm/cluster/images
 
 if [ -z "${registry}" ]; then
+
+	sudo mkdir -p /opt/ibm/cluster/images
+	sudo mv ${image_file} /opt/ibm/cluster/images/
+	
+	sudo chown $(whoami) -R /opt/ibm/cluster/images
 
  echo " no private registry setup exit now"
   exit 0
@@ -136,3 +146,9 @@ while read image; do
   echo "Pushing ${image}"
   sudo docker push ${image} >> /tmp/imagepush.log
 done < <(sudo docker images | grep ${registry} | awk '{print $1 ":" $2}' | sort | uniq)
+
+sudo mkdir -p /opt/ibm/cluster/images
+sudo mv ${image_file} /opt/ibm/cluster/images/
+
+sudo chown $(whoami) -R /opt/ibm/cluster/images
+
