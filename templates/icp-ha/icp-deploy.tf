@@ -18,6 +18,7 @@ resource "null_resource" "image_copy" {
 
     # We need to wait for cloud init to finish it's boot sequence.
     inline = [
+      "echo \"${google_compute_address.icp-master.address} ${var.deployment}-cluster.icp\" | sudo tee -a /etc/hosts",    
       "while [ ! -f /var/lib/cloud/instance/boot-finished ]; do sleep 1; done",
       "/opt/ibm/scripts/download_icp.sh ${var.image_location != "" ? "-i ${var.image_location}" : ""} -u ${var.download_user} -p ${var.download_user_password}"
     ]
@@ -59,7 +60,8 @@ resource "null_resource" "image_load" {
 ##################################
 module "icpprovision" {
 
-  source = "git::https://github.com/IBM-CAMHub-Open/template_icp_modules.git?ref=2.3//public_cloud"
+  #source = "git::https://github.com/IBM-CAMHub-Open/template_icp_modules.git?ref=2.3//public_cloud"
+  source = "git::https://popescu:668e277bff9759376448e3cd36fc9971067545ec@github.ibm.com/OpenContent/template_icp_modules.git?ref=val-3.1.2//public_cloud"
 
     # Provide IP addresses for boot, master, mgmt, va, proxy and workers
     boot-node     = "${google_compute_instance.icp-boot.network_interface.0.network_ip}"

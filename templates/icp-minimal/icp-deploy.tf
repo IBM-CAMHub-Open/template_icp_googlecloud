@@ -49,7 +49,9 @@ resource "null_resource" "image_load" {
       "export REGISTRY_USERNAME=${local.docker_username}",
       "export REGISTRY_PASSWORD=${local.docker_password}",
       "/opt/ibm/scripts/load_image.sh -u ${var.ssh_user} ${var.image_location != "" ? "-i ${var.image_location}" : ""}",
-      "sudo touch /opt/ibm/.imageload_complete"
+      "sudo touch /opt/ibm/.imageload_complete",
+      "echo \"${google_compute_instance.icp-proxy.network_interface.0.access_config.0.assigned_nat_ip} ${var.deployment}-ingress-${random_id.clusterid.hex}\"  | sudo tee -a /etc/hosts",
+      
     ]
   }
 }

@@ -48,5 +48,5 @@ output "connection_name" {
 }
 
 output "icp_klusterlet_dns" {
-  value = "${google_compute_instance.icp-master.network_interface.0.access_config.0.assigned_nat_ip}"
+  value = "${var.deployment}-ingress-${random_id.clusterid.hex}"
 }

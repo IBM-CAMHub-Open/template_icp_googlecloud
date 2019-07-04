@@ -186,7 +186,6 @@ fs_setup:
 mounts:
 - [ sdb, /var/lib/docker ]
 runcmd:
-- echo '${google_compute_address.icp-master.address} ${var.deployment}-cluster.icp' >> /etc/hosts
 - /opt/ibm/scripts/download_docker.sh ${var.docker_package_location != "" ? "-d ${var.docker_package_location}" : "" } -u ${var.download_user} -p ${var.download_user_password} 
 - /opt/ibm/scripts/bootstrap.sh -u ${var.ssh_user} ${local.docker_package_uri != "" ? "-p ${local.docker_package_uri}" : "" } -d /dev/sdb
 - chown ${var.ssh_user} /opt/ibm/scripts/.master_ssh
@@ -292,6 +291,7 @@ mounts:
 runcmd:
 - /opt/ibm/scripts/download_docker.sh ${var.docker_package_location != "" ? "-d ${var.docker_package_location}" : "" } -u ${var.download_user} -p ${var.download_user_password} 
 - /opt/ibm/scripts/bootstrap.sh -u ${var.ssh_user} ${local.docker_package_uri != "" ? "-p ${local.docker_package_uri}" : "" } -d /dev/sdb
+- echo "${google_compute_address.icp-klusterlet.address} ${var.deployment}-ingress-${random_id.clusterid.hex}"  | sudo tee -a /etc/hosts
 EOF
   }  
   

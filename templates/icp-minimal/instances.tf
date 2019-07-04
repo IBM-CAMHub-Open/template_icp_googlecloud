@@ -1,4 +1,3 @@
-
 data "google_compute_image" "base_compute_image" {
   project   = "${var.image_type["project"]}"
   family    = "${var.image_type["family"]}"

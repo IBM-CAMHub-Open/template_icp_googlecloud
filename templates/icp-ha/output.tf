@@ -55,5 +55,5 @@ output "connection_name" {
 }
 
 output "icp_klusterlet_dns" {
-  value = "${google_compute_address.icp-klusterlet.address}"
+  value = "${var.deployment}-ingress-${random_id.clusterid.hex}"
 }
