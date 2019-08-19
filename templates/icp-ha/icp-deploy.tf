@@ -60,9 +60,8 @@ resource "null_resource" "image_load" {
 ##################################
 module "icpprovision" {
 
-  #source = "git::https://github.com/IBM-CAMHub-Open/template_icp_modules.git?ref=2.3//public_cloud"
-  source = "git::https://popescu:668e277bff9759376448e3cd36fc9971067545ec@github.ibm.com/OpenContent/template_icp_modules.git?ref=val-3.1.2//public_cloud"
-
+  source = "git::https://github.com/IBM-CAMHub-Open/template_icp_modules.git?ref=2.3//public_cloud"
+  
     # Provide IP addresses for boot, master, mgmt, va, proxy and workers
     boot-node     = "${google_compute_instance.icp-boot.network_interface.0.network_ip}"
     bastion_host  = "${google_compute_instance.icp-boot.network_interface.0.access_config.0.nat_ip}"
