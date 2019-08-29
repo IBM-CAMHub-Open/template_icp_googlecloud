@@ -154,9 +154,10 @@ variable "icppassword" {
   default     = ""
 }
 
+
 variable "icp_inception_image" {
   description = "ICP image to use for installation"
-  default = "ibmcom/icp-inception-amd64:3.1.1-ee"
+  default = "ibmcom/icp-inception-amd64:3.2.0-ee"
 }
 
 variable "cluster_cname" {

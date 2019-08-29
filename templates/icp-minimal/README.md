@@ -1,6 +1,6 @@
 # ICP minimal installation on Google Cloud - Terraform Template
 
-This Terraform template deploys on Google Cloud the [IBM Cloud Private](https://www.ibm.com/cloud-computing/products/ibm-cloud-private/) version 3.1.1 in a minimal configuration, using the ICP 3.1.1 CE binaries from Docker Hub. 
+This Terraform template deploys on Google Cloud the [IBM Cloud Private](https://www.ibm.com/cloud-computing/products/ibm-cloud-private/) version 3.2.0 in a minimal configuration, using the ICP 3.2.0 CE binaries from Docker Hub. 
 
 
 ## Deployment overview
@@ -20,7 +20,7 @@ This template creates an environment where
 
 ![Architecture](../../static/icp_ce_minimal.png)
 
-For more infomation on IBM Cloud Private Nodes, please reference the Knowledge Center: <https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.1.1/getting_started/architecture.html>
+For more infomation on IBM Cloud Private Nodes, please reference the Knowledge Center: <https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.2.0/getting_started/architecture.html>
 
 ## Pre-requisites
 
@@ -46,7 +46,7 @@ The following tables list the template variables.
 | `region`   | yes           | The region the resource should be created in. | |
 | `zone`   | yes           | The region zone the resource should be created in. | |
 | `image_type`   | yes           | The OS project and family to install on the VSIs. Only Ubuntu 16.04 has been validated. | ubuntu |
-| `icp_inception_image` | yes | ICP image to use for installation  | ibmcom/icp-inception:3.1.1 |
+| `icp_inception_image` | yes | ICP image to use for installation  | ibmcom/icp-inception:3.2.0 |
 | `icppassword` | no | ICP administrator password.  One will be generated if not set. | |
 | `deployment` | yes | Identifier prefix added to the host names of all your infrastructure resources for organising/naming ease | icp |
 | `network_interface` | yes | Network interface for the VMs | ens4 |

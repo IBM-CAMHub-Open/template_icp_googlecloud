@@ -18,6 +18,15 @@ if [ -z "${package_location}" ]; then
   exit 0
 fi
 
+basename=$(basename ${package_location})
+echo "basename=$basename"
+
+if [ -f /opt/ibm/cluster/images/$basename ]; then
+ 	echo "image file seems to have been already loaded to /opt/ibm/cluster/images/$basename, do nothing"
+  exit 0
+
+fi
+
 sourcedir="/tmp/icpimages"
 # Get package from remote location if needed
 

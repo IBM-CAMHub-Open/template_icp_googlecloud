@@ -1,6 +1,6 @@
 # ICP with Load Balancers on Google Cloud - Terraform Template
 
-This Terraform template deploys on Google Cloud the [IBM Cloud Private](https://www.ibm.com/cloud-computing/products/ibm-cloud-private/) version 3.1.1 in an HA configuration. 
+This Terraform template deploys on Google Cloud the [IBM Cloud Private](https://www.ibm.com/cloud-computing/products/ibm-cloud-private/) version 3.2.0 in an HA configuration. 
 
 ## Deployment overview
 This template creates an environment where
@@ -17,7 +17,7 @@ This template creates an environment where
 ![Architecture](../../static/icp_ibmcloud.png)
 
 
-For more infomation on IBM Cloud Private Nodes, please reference the Knowledge Center: <https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.1.1/getting_started/architecture.html>
+For more infomation on IBM Cloud Private Nodes, please reference the Knowledge Center: <https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.2.0/getting_started/architecture.html>
 
 ## Pre-requisites
 
@@ -45,9 +45,9 @@ The following tables list the template variables.
 | `region`   | yes           | The region the resource should be created in. | |
 | `zone`   | yes           | The region zone the resource should be created in. | |
 | `image_type`   | yes           | The OS project and family to install on the VSIs. Only Ubuntu 16.04 has been validated. | ubuntu |
-| `icp_inception_image` | yes | ICP image to use for installation  | ibmcom/icp-inception-amd64:3.1.1-ee |
+| `icp_inception_image` | yes | ICP image to use for installation  | ibmcom/icp-inception-amd64:3.2.0-ee |
 | `docker_package_location` | no | URI for docker package location, e.g. http://<myhost>/icp-docker-17.09_x86_64.bin. If not specified and using Ubuntu, will install latest `docker-ce` off public repo. |
-| `image_location` | yes | URI for image package location, e.g. http://<myhost>/ibm-cloud-private-x86_64-3.1.1.tar.gz | |
+| `image_location` | yes | URI for image package location, e.g. http://<myhost>/ibm-cloud-private-x86_64-3.2.0.tar.gz | |
 | `icppassword` | no | ICP administrator password.  One will be generated if not set. | |
 | `deployment` | yes | Identifier prefix added to the host names of all your infrastructure resources for organising/naming ease | icp |
 | `network_interface` | yes | Network interface for the VMs | ens4 |

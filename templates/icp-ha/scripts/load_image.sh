@@ -27,10 +27,17 @@ if [ -z "${package_location}" ]; then
   exit 0
 fi
 
-# find my private IP address, which will be on the interface the default route is configured on
-myip=`ip route get 10.0.0.11 | awk 'NR==1 {print $NF}'`
+basenamef=$(basename ${package_location})
+echo "basenamef=$basenamef"
 
-echo "${myip} ${registry}" | sudo tee -a /etc/hosts
+if [ -f /opt/ibm/cluster/images/$basenamef ]; then
+ 	echo "image file seems to have been already loaded to /opt/ibm/cluster/images/$basenamef, do nothing"
+  exit 0
+
+fi
+
+image_file="/tmp/$(basename ${package_location})"
+echo "image_file=$image_file"
 
 sourcedir="/tmp/icpimages"
 # Get package from remote location if needed
@@ -80,14 +87,26 @@ fi
 echo "Unpacking ${image_file} ..."
 pv --interval 10 ${image_file} | tar zxf - -O | sudo docker load
 
+
+if [ -z "${registry}" ]; then
+
+	sudo mkdir -p /opt/ibm/cluster/images
+	sudo mv ${image_file} /opt/ibm/cluster/images/
+	
+	sudo chown $(whoami) -R /opt/ibm/cluster/images
+
+ echo " no private registry setup exit now"
+  exit 0
+fi
+
+# find my private IP address, which will be on the interface the default route is configured on
+myip=`ip route get 10.0.0.11 | awk 'NR==1 {print $NF}'`
+
+echo "${myip} ${registry}" | sudo tee -a /etc/hosts
+
 sudo mkdir -p /registry
 sudo mkdir -p /etc/docker/certs.d/${registry}
 sudo cp /etc/registry/registry-cert.pem /etc/docker/certs.d/${registry}/ca.crt
-
-sudo mkdir -p /opt/ibm/cluster/images
-sudo mv ${image_file} /opt/ibm/cluster/images/
-
-sudo chown $(whoami) -R /opt/ibm/cluster/images
 
 # Create authentication
 sudo mkdir /auth
@@ -129,3 +148,9 @@ while read image; do
   echo "Pushing ${image}"
   sudo docker push ${image} >> /tmp/imagepush.log
 done < <(sudo docker images | grep ${registry} | awk '{print $1 ":" $2}' | sort | uniq)
+
+sudo mkdir -p /opt/ibm/cluster/images
+sudo mv ${image_file} /opt/ibm/cluster/images/
+
+sudo chown $(whoami) -R /opt/ibm/cluster/images
+

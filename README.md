@@ -4,7 +4,7 @@ Copyright IBM Corp. 2019, 2019
 
 # Terraform ICP Google Cloud
 
-This repository contains a collection of Terraform templates. These Terraform templates deploy on Google Cloud the [IBM Cloud Private](https://www.ibm.com/cloud-computing/products/ibm-cloud-private/) version 3.1.1 in an HA or minimal configuration. 
+This repository contains a collection of Terraform templates. These Terraform templates deploy on Google Cloud the [IBM Cloud Private](https://www.ibm.com/cloud-computing/products/ibm-cloud-private/) version 3.2.0 in an HA or minimal configuration. 
 
 
 ## Templates

@@ -47,9 +47,13 @@ output "ibm_cloud_private_ssh_key" {
 }
 
 output "Filestore for registry and audit" {
-  value = "${var.master["nodes"] > 1 ? "${google_filestore_instance.icp-registry.networks.0.ip_addresses.0}:/${google_filestore_instance.icp-registry.file_shares.0.name}":"" }"
+  value = "${google_filestore_instance.icp-registry.networks.0.ip_addresses.0}:/${google_filestore_instance.icp-registry.file_shares.0.name}"
 }
 
 output "connection_name" {
 	value = "${var.deployment}${random_id.clusterid.hex}"
+}
+
+output "icp_klusterlet_dns" {
+  value = "${var.deployment}-ingress-${random_id.clusterid.hex}"
 }

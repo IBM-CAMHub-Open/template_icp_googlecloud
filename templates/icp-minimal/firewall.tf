@@ -47,7 +47,7 @@ resource "google_compute_firewall" "master" {
 
   source_ranges = [ "0.0.0.0/0" ]
   target_tags = [
-    "icp-cluster-${random_id.clusterid.hex}"
+    "icp-master-${random_id.clusterid.hex}"
   ]
 }
 
@@ -72,7 +72,7 @@ resource "google_compute_firewall" "proxy" {
   }
   source_ranges = [ "0.0.0.0/0" ]
   target_tags = [
-    "icp-cluster-${random_id.clusterid.hex}"
+    "icp-proxy-${random_id.clusterid.hex}"
   ]
 }
 
