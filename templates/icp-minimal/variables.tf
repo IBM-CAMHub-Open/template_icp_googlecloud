@@ -79,8 +79,8 @@ variable "boot" {
     cpu           = 2
     memory        = 4096
 
-    disk_size           = 100   # Specify size or leave empty to use same size as template.
-    docker_vol_size    = 100   # Specify size for docker disk, default 100.
+    disk_size           = 150   # Specify size or leave empty to use same size as template.
+    docker_vol_size    = 150   # Specify size for docker disk, default 100.
   }
 }
 
@@ -93,7 +93,7 @@ variable "master" {
     memory        = 32768
 
     disk_size           = 300   # Specify size or leave empty to use same size as template.
-    docker_vol_size    = 100   # Specify size for docker disk, default 100.
+    docker_vol_size    = 150   # Specify size for docker disk, default 100.
   }
 }
 
@@ -106,7 +106,7 @@ variable "proxy" {
     memory        = 4096
 
     disk_size           = 100   # Specify size or leave empty to use same size as template.
-    docker_vol_size    = 100   # Specify size for docker disk, default 100.
+    docker_vol_size    = 150   # Specify size for docker disk, default 100.
   }
 }
 
@@ -119,7 +119,7 @@ variable "mgmt" {
     memory        = 16384
 
     disk_size           = 100   # Specify size or leave empty to use same size as template.
-    docker_vol_size    = 100   # Specify size for docker disk, default 100.
+    docker_vol_size    = 150   # Specify size for docker disk, default 100.
   }
 }
 
@@ -132,7 +132,7 @@ variable "va" {
     memory        = 16384
 
     disk_size           = 100   # Specify size or leave empty to use same size as template.
-    docker_vol_size    = 100   # Specify size for docker disk, default 100.
+    docker_vol_size    = 150   # Specify size for docker disk, default 100.
   }
 }
 
@@ -145,7 +145,7 @@ variable "worker" {
     memory        = 16384
 
     disk_size           = 100      # Specify size or leave empty to use same size as template.
-    docker_vol_size    = 100   # Specify size for docker disk, default 100.
+    docker_vol_size    = 150   # Specify size for docker disk, default 100.
   }
 }
 
@@ -156,7 +156,7 @@ variable "icppassword" {
 
 variable "icp_inception_image" {
   description = "ICP image to use for installation"
-  default = "ibmcom/icp-inception:3.1.1"
+  default = "ibmcom/icp-inception:3.2.1"
 }
 
 variable "cluster_cname" {
